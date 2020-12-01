@@ -25,69 +25,65 @@ opts_chunk$set(
 )
 ```
 
-# R on AWS
+# R na AWS
 
-> November 5th, 2020 // [21st Why R? Webinar - Video](https://www.youtube.com/watch?v=h6FiLrZfI-8) // [Marcin Kosinski](https://www.linkedin.com/in/mkosinski/)
+> 1 grudnia 2020 [Marcin Kosiński] (https://www.linkedin.com/in/mkosinski/)
+
+## Repozytorium udostępnione przez członka [Fundacji Why R?] (http://whyr.pl)
+
+<img src = "https://raw.githubusercontent.com/MarcinKosinski/RnaAWS/main/img/foundation.JPG" alt = "fundacja" />
 
 
-<a href="https://www.youtube.com/watch?v=h6FiLrZfI-8"><img src="http://whyr.pl/foundation/images/fulls/webinars/marcin.jpg" alt="video" /></a>
-
-
-## Webinar organized by [Why R? Foundation](http://whyr.pl)
-
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/foundation.JPG" alt="foundation" />
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/map.JPG" alt="foundation" />
-
-# Table of contents
+# Spis treści
 
 - [AWS S3](#aws-s3)
 - [AWS RDS](#aws-rds)
 - [AWS EC2](#aws-ec2)
 
-# About AWS
+# O AWS
 
-> Amazon Web Services (AWS) is the world’s most comprehensive and broadly adopted cloud platform, offering over 175 fully featured services from data centers globally. Millions of customers—including the fastest-growing startups, largest enterprises, and leading government agencies—are using AWS to lower costs, become more agile, and innovate faster.
+> Amazon Web Services (AWS) to najbardziej wszechstronna i szeroko stosowana platforma chmurowa na świecie, oferująca ponad 175 w pełni funkcjonalnych usług z centrów danych na całym świecie. Miliony klientów - w tym najszybciej rozwijające się start-upy, największe przedsiębiorstwa i czołowe agencje rządowe - korzystają z AWS w celu obniżenia kosztów, zwiększenia elastyczności i szybszego wprowadzania innowacji.
 
-# Logging
+# Logowanie
 
-- https://aws.amazon.com/ -> Create an AWS account
-- Console https://YOUR_IAM.signin.aws.amazon.com/console
-    - Example https://021312779203.signin.aws.amazon.com/console
+- https://aws.amazon.com/ -> Utwórz konto AWS
+- Konsola https://YOUR_IAM.signin.aws.amazon.com/console
+    - Przykład https://021312779203.signin.aws.amazon.com/console
 
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/logging.JPG" alt="foundation" />
+<img src = "https://raw.githubusercontent.com/MarcinKosinski/RnaAWS/main/img/logging.JPG" alt = "fundacja" />
 
-# Management Console
+# Konsola zarządzania
 
 - https://console.aws.amazon.com/
 
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/console.JPG" alt="console" />
+<img src = "https://raw.githubusercontent.com/MarcinKosinski/RnaAWS/main/img/console.JPG" alt = "console" />
 
-# Services we will cover
+# Usługi, które omówimy
 
-| Service  | URL |
-|----------|-----|
-| AWS Simple Cloud Storage (S3)  | [aws.amazon.com/s3/](aws.amazon.com/s3/)   |
-| Amazon RDS - Cloud Relational Database | [aws.amazon.com/rds/](aws.amazon.com/rds/) |
-| AWS Elastic Computing (EC2) - Free Cloud Services with AWS | [aws.amazon.com/ec2/](aws.amazon.com/ec2/) |
-| Amazon IAM - Identity and Access Management | [aws.amazon.com/iam/](aws.amazon.com/iam/) |
+| Serwis | URL |
+| ---------- | ----- |
+| AWS Simple Cloud Storage (S3) | [aws.amazon.com/s3/](aws.amazon.com/s3/) |
+| Amazon RDS - relacyjna baza danych w chmurze | [aws.amazon.com/rds/](aws.amazon.com/rds/) |
+| AWS Elastic Computing (EC2) - bezpłatne usługi w chmurze z AWS | [aws.amazon.com/ec2/](aws.amazon.com/ec2/) |
+| Amazon IAM - zarządzanie tożsamością i dostępem | [aws.amazon.com/iam/](aws.amazon.com/iam/) |
 
 
 # AWS S3
 
-Amazon Simple Storage Service (Amazon S3) is an object storage service that offers industry-leading scalability, data availability, security, and performance. This means customers of all sizes and industries can use it to store and protect any amount of data for a range of use cases, such as data lakes, websites, mobile applications, backup and restore, archive, enterprise applications, IoT devices, and big data analytics.
+Amazon Simple Storage Service (Amazon S3) to usługa obiektowej pamięci masowej, która oferuje wiodącą w branży skalowalność, dostępność danych, bezpieczeństwo i wydajność. Oznacza to, że klienci każdej wielkości i z każdej branży mogą go używać do przechowywania i ochrony dowolnej ilości danych w różnych przypadkach użycia, takich jak jeziora danych, witryny internetowe, aplikacje mobilne, tworzenie kopii zapasowych i przywracanie, archiwizacja, aplikacje korporacyjne, urządzenia IoT i duże Analityka danych.
 
-### Needed credentials
+### Potrzebne dane logowania
 
-Go to your profile -> My Security Credentials -> Create Access Key
+Przejdź do swojego profilu -> Moje poświadczenia bezpieczeństwa -> Utwórz klucz dostępu
 
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/credentials.png" alt="credentials" />
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/access_key.png" alt="access_key" />
+<img src = "https://raw.githubusercontent.com/MarcinKosinski/RnaAWS/main/img/credentials.png" alt = "credentials" />
+<img src = "https://raw.githubusercontent.com/MarcinKosinski/RnaAWS/main/img/access_key.png" alt = "access_key" />
 
-This is also the place where you can add MFA (multi factor authentication).
+Jest to również miejsce, w którym można dodać MFA (uwierzytelnianie wieloskładnikowe).
 
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/mfa.JPG" alt="access_key" />
+<img src = "https://raw.githubusercontent.com/MarcinKosinski/RnaAWS/main/img/mfa.JPG" alt = "access_key" />
 
-Store credentials in you `.Renviron` file in the working directory
+Przechowuj poświadczenia w swoim pliku `.Renviron` w katalogu roboczym
 
 ```{r}
 AWS_ACCESS_KEY_ID = your_access_key
@@ -95,18 +91,18 @@ AWS_SECRET_ACCESS_KEY = your_secret_access_key
 AWS_DEFAULT_REGION = eu-central-1
 ```
 
-Remember to specify `AWS_DEFAULT_REGION` to the region in which you are registered.
+Pamiętaj, aby określić `AWS_DEFAULT_REGION` w regionie, w którym jesteś zarejestrowany.
 
-Now you can load credentials with
+Teraz możesz załadować poświadczenia za pomocą
 
 ```{r}
 readRenviron('.Renviron')
 ```
 
-Next time this file will be read on a startup of R session.
+Następnym razem ten plik zostanie odczytany podczas uruchamiania sesji języka R.
 
 
-### Working with S3
+### Praca z  S3
 
 ```{r}
 # install.packages(c('aws.s3', 'readr'))
@@ -114,7 +110,7 @@ library(aws.s3)
 library(readr)
 ```
 
-Storing data
+Przechowywanie danych
 
 ```{r}
 iris_small <- iris[1:50, ]
@@ -123,57 +119,57 @@ aws.s3::s3write_using(
   x = iris_small,
   FUN = write_csv,
   object = 'iris_small.csv',
-  bucket = 'whyr-webinar-example'
+  bucket = 'wdi-example'
 )
 
 aws.s3::s3saveRDS(
   x = iris,
   object = 'iris.rds',
-  bucket = 'whyr-webinar-example'
+  bucket = 'wdi-example'
 )
 
 ```
 
-Reading data
+Czytanie danych
 
 ```{r}
 iris_small_from_s3_csv <-
   aws.s3::s3read_using(
     FUN = read_csv,
     object = 'iris_small.csv',
-    bucket = 'whyr-webinar-example'
+    bucket = 'wdi-example'
   )
 
 iris_small_from_s3 <-
   aws.s3::s3readRDS(
     object = 'iris.rds',
-    bucket = 'whyr-webinar-example'
+    bucket = 'wdi-example'
   )
 ```
 
-### Create a bucket
+### Tworzenie bucket'u
 
 ```{r}
-aws.s3::putbucket('example-website-whyr')
-aws.s3::putbucket('example-website-whyr-2')
+aws.s3::putbucket('example-website-wdi')
+aws.s3::putbucket('example-website-wdi-2')
 ```
 
-### S3 bucket as a website
+### S3 bucket jako strona
 
-Once a bucket is created you can push a .html file
+Po utworzeniu zasobnika możesz przesłać plik .html
 
 ```{r}
 aws.s3::put_object(
   file = 'html/index.html',
   object = 'index.html', 
-  bucket = 'example-website-whyr-2', 
+  bucket = 'example-website-wdi-2', 
   headers = list(`Content-Type` = 'text/html')
 )
 ```
 
-and assign a policy to the bucket manually
+i ręcznie przypisz policy do bucketu
 
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/bucket_policy.JPG" alt="access_key" />
+<img src="https://raw.githubusercontent.com/MarcinKosinski/RnaAWS/main/img/bucket_policy.JPG" alt="access_key" />
 
 ```{json}
 {
@@ -184,48 +180,49 @@ and assign a policy to the bucket manually
             "Effect": "Allow",
             "Principal": "*",
             "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::example-website-whyr/*"
+            "Resource": "arn:aws:s3:::example-website-wdi/*"
         }
     ]
 }
 ```
 
-or automatically 
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/bucket_policy_automated.JPG" alt="access_key" />
+albo automatycznie
+
+<img src="https://raw.githubusercontent.com/MarcinKosinski/RnaAWS/main/img/bucket_policy_automated.JPG" alt="access_key" />
 
 ```{r}
 aws.s3::put_bucket_policy(
-  bucket = 'example-website-whyr-2',
+  bucket = 'example-website-wdi-2',
   policy = 'json/bucket_policy.json'
 )
 ```
 
-#### Enable static website hosting
+#### Włącz hosting statycznej witryny internetowej
 
-In bucket options, press properties
+W opcjach bucket'u, wciśnij properties
 
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/properties.JPG" alt="properties" />
+<img src="https://raw.githubusercontent.com/MarcinKosinski/RnaAWS/main/img/properties.JPG" alt="properties" />
 
-and scrool down to static website hosting
+i przejdź do statycznego hostingu witryn internetowych
 
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/static_website_hosting.JPG" alt="static_website_hosting" />
+<img src="https://raw.githubusercontent.com/MarcinKosinski/RnaAWS/main/img/static_website_hosting.JPG" alt="static_website_hosting" />
 
-Enable the option, and provide the name of the index.html file that stand for the landing page of your website
+Włącz opcję i podaj nazwę pliku index.html, który oznacza stronę docelową Twojej witryny
 
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/index.JPG" alt="index" />
+<img src="https://raw.githubusercontent.com/MarcinKosinski/RnaAWS/main/img/index.JPG" alt="index" />
 
-After that you should be able to see the address of your website
+Po tym powinieneś być w stanie zobaczyć adres swojej witryny
 
 [http://example-website-whyr.s3-website.eu-central-1.amazonaws.com/](http://example-website-whyr.s3-website.eu-central-1.amazonaws.com/)
 
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/website.JPG" alt="website" />
+<img src="https://raw.githubusercontent.com/MarcinKosinski/RnaAWS/main/img/website.JPG" alt="website" />
 
 # AWS RDS
 
-Amazon Relational Database Service (Amazon RDS) makes it easy to set up, operate, and scale a relational database in the cloud. It provides cost-efficient and resizable capacity while automating time-consuming administration tasks such as hardware provisioning, database setup, patching and backups. It frees you to focus on your applications so you can give them the fast performance, high availability, security and compatibility they need.
+Usługa Amazon Relational Database Service (Amazon RDS) ułatwia konfigurację, obsługę i skalowanie relacyjnej bazy danych w chmurze. Zapewnia ekonomiczną pojemność o zmiennym rozmiarze, a jednocześnie automatyzuje czasochłonne zadania administracyjne, takie jak udostępnianie sprzętu, konfiguracja bazy danych, łatanie i tworzenie kopii zapasowych. Pozwala skupić się na aplikacjach, dzięki czemu możesz zapewnić im szybką wydajność, wysoką dostępność, bezpieczeństwo i kompatybilność, których potrzebują.
 
 
-### Working with AWS RDS
+### Praca z AWS RDS
 
 ```{r}
 #install.packages(c('DBI', 'RPostgres', 'dplyr'))
@@ -234,23 +231,23 @@ library(RPostgres)
 library(dplyr)
 ```
 
-From the RDS console panel you can create the database
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/create_db.JPG" alt="create" />
+Z panelu konsoli RDS możesz stworzyć bazę danych
+<img src="https://raw.githubusercontent.com/MarcinKosinski/RnaAWS/main/img/create_db.JPG" alt="create" />
 
-and select the engine that you want.
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/engine_db.JPG" alt="engine" />
+i wybrac żądany silnik.
+<img src="https://raw.githubusercontent.com/MarcinKosinski/RnaAWS/main/img/engine_db.JPG" alt="engine" />
 
-You should be able to create credentials for the future access.
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/credentials_db.JPG" alt="credentials" />
+Powinieneś być w stanie utworzyć poświadczenia dla przyszłego dostępu.
+<img src="https://raw.githubusercontent.com/MarcinKosinski/RnaAWS/main/img/credentials_db.JPG" alt="credentials" />
 
-Pick the size that you need
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/size_db.JPG" alt="size" />
+Wybierz rozmiar, którego potrzebujesz
+<img src="https://raw.githubusercontent.com/MarcinKosinski/RnaAWS/main/img/size_db.JPG" alt="size" />
 
-and remember to name the database within a host
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/name_db.JPG" alt="name" />
+i pamiętaj, aby nazwać bazę danych na hoście
+<img src="https://raw.githubusercontent.com/MarcinKosinski/RnaAWS/main/img/name_db.JPG" alt="name" />
 
-Once the database is created you should be able to get it's endpoint
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/endpoint_db.JPG" alt="name" />
+Po utworzeniu bazy danych powinno być możliwe uzyskanie jej endpoint'u
+<img src="https://raw.githubusercontent.com/MarcinKosinski/RnaAWS/main/img/endpoint_db.JPG" alt="name" />
 
 ```{r}
 
@@ -264,21 +261,21 @@ rds_credentials <- list(
 ```
 
 
-What you need to remember about are the security group settings
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/security_group_name.JPG" alt="security_group_name" />
+Musisz pamiętać o ustawieniach grup bezpieczeństwa
+<img src="https://raw.githubusercontent.com/MarcinKosinski/RnaAWS/main/img/security_group_name.JPG" alt="security_group_name" />
 
-You can edit security group
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/edit_security.png" alt="edit_security" />
+Możesz edytować grupę zabezpieczeń
+<img src="https://raw.githubusercontent.com/MarcinKosinski/RnaAWS/main/img/edit_security.png" alt="edit_security" />
 
-So that the port 5432 is accessible for the traffic
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/rules_db.JPG" alt="rules_db" />
+Aby port 5432 był dostępny dla ruchu
+<img src="https://raw.githubusercontent.com/MarcinKosinski/RnaAWS/main/img/rules_db.JPG" alt="rules_db" />
 
-Make sure the database is publically available
+Upewnij się, że baza danych jest publicznie dostępna
 
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/accessibility.JPG" alt="accessibility" />
+<img src="https://raw.githubusercontent.com/MarcinKosinski/RnaAWS/main/img/accessibility.JPG" alt="accessibility" />
 
-You can change that in database connectivity settings.
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/connectivity.JPG" alt="connectivity" />
+Możesz to zmienić w ustawieniach łączności z bazą danych.
+<img src="https://raw.githubusercontent.com/MarcinKosinski/RnaAWS/main/img/connectivity.JPG" alt="connectivity" />
 
 
 ```{r}
@@ -293,7 +290,7 @@ con <- DBI::dbConnect(
 )
 ```
 
-Once you are connected, you can list current tables and create new with
+Po nawiązaniu połączenia możesz wyświetlić listę aktualnych tabel i utworzyć nowe
 
 ```{r}
 DBI::dbListTables(con)
@@ -339,9 +336,9 @@ library(RPostgres)
 
 # AWS EC2
 
-Amazon Elastic Compute Cloud (Amazon EC2) is a web service that provides secure, resizable compute capacity in the cloud. It is designed to make web-scale cloud computing easier for developers. Amazon EC2’s simple web service interface allows you to obtain and configure capacity with minimal friction. It provides you with complete control of your computing resources and lets you run on Amazon’s proven computing environment.
+Amazon Elastic Compute Cloud (Amazon EC2) to usługa internetowa zapewniająca bezpieczną pojemność obliczeniową o zmiennym rozmiarze w chmurze. Został zaprojektowany, aby ułatwić programistom przetwarzanie w chmurze w skali internetowej. Prosty interfejs usług sieciowych Amazon EC2 umożliwia uzyskiwanie i konfigurowanie wydajności przy minimalnych tarciach. Zapewnia pełną kontrolę nad zasobami komputerowymi i umożliwia pracę w sprawdzonym środowisku obliczeniowym firmy Amazon.
 
-### Working with AWS EC2
+### Praca z AWS EC2
 
 ```{r}
 install.packages("aws.ec2", repos = c(getOption("repos"), "http://cloudyr.github.io/drat"))
@@ -351,4 +348,4 @@ library(aws.ec2)
 
 RStudio Server Amazon Machine Image (AMI) - https://www.louisaslett.com/RStudio_AMI/
 
-<img src="https://raw.githubusercontent.com/MarcinKosinski/RonAWS/main/img/important.JPG" alt="important" />
+<img src="https://raw.githubusercontent.com/MarcinKosinski/RnaAWS/main/img/important.JPG" alt="important" />
